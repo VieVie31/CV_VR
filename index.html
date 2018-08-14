@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CV in VR - Olivier RISSER-MAROIX</title>
+  <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+  <script>
+    AFRAME.registerComponent('alpha-png', {
+      dependencies: ['material'],
+      init: function () {
+        this.el.getObject3D('mesh').material.alphaTest = 0.5;
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene>
+    <!-- some images for design -->
+    <a-entity>
+      <a-image src="./imgs/machine_learning.png" position="-2 2 -3" rotation="25 75 0" alpha-png></a-image>
+      <a-image src="./imgs/ann.png" position="2 2 -3" rotation="25 -75 0" width="2" height="1" alpha-png></a-image>
+      <a-image src="./imgs/decision_tree.png" position="0 3 -3" rotation="45 0 0" width="1.5" height="0.75" alpha-png></a-image>
+    </a-entity>
+
+    <!-- the main menu : the blackboard-->
+    <a-image id="blackboard" src="./imgs/blackboard.png" position="0 1 -5.5" width="4" height="3">
+      <!-- my name -->
+      <a-text position="-1.5 -0.8 0" value="Olivier RISSER-MAROIX" color="#FFF"></a-text>
+
+      <!-- the awsome guy -->
+      <a-image id="me" src="./imgs/me.png" position="-1.5 -0.2 2.5" width="1.5" height="1.5" event-set__enter="_event: mouseenter; _target: #me_legend; visible: true" event-set__leave="_event: mouseleave; _target: #me_legend; visible: false" alpha-png>
+        <a-entity light="type:directional; castShadow:true;" position="1 0.5 1.5" angle="90"></a-entity>
+        <a-text id="me_legend" align="center" color="#F77" visible="false" position="1.5 0 0" rotation="0 33 0" value="THE DATA SCIENTIST YOU NEED !">
+        </a-text>
+      </a-image>
+
+      <!-- education & experience button -->
+      <a-cylinder id="education" src="./imgs/education.png" position="-0.75 0.3 1" width="1" height="0.75" radius="0.5" theta-length="75" theta-start="-25" event-set__enter="_event: mouseenter; _target: #window_education; visible: true" alpha-png select-education>
+        <a-text id="education_legend" align="center" color="#FF0" visible="false" position="0 -0.5 1" value="Education & Experience">
+        </a-text>
+      </a-cylinder>
+
+      <!-- personnal projects button -->
+      <a-sphere id="projects" src="./imgs/projects.png" position="0.75 0.3 1" width="1" height="1" radius="0.4" theta-length="90" theta-start="45" phi-length="90" phi-start="45" event-set__enter="_event: mouseenter; _target: #window_projects; visible: true" event-set__leave="_event: mouseleave; _target: #projects_legend; visible: false" alpha-png>
+        <a-text id="projects_legend" align="center" color="#FF0" visible="false" position="0 -0.5 1" value="Personnal Projects">
+        </a-text>
+      </a-sphere>
+    </a-image>
+
+    <!-- education window-->
+    <a-image id="window_education" src="./imgs/window.png" position="0 1.2 -3.25" height="2" width="2.5" visible="false">
+      <!-- close button-->
+      <a-image id="close_window_education" src="./imgs/close.png" position="1.1 0.9 0.25" height="0.125" width="0.125" event-set__enter="_event: mouseenter; _target: #window_education; visible: false" alpha-png></a-image>
+
+      <!-- content -->
+      <a-entity>
+        <!-- education -->
+        <a-entity id="sorbonne_upmc" event-set__enter="_event: mouseenter; _target: #sorbonne_upmc_description; visible: true" event-set__leave="_event: mouseleave; _target: #sorbonne_upmc_description; visible: false">
+          <a-image id="sorbonne" src="./imgs/edu_xp/sorbonne.png" position="-0.5 0.5 0.2" height="0.25" width="0.5" alpha-png></a-image>
+          <a-image id="upmc" src="./imgs/edu_xp/upmc.png" position="-0.5 0.2 0.2" height="0.25" width="0.5" alpha-png></a-image>
+          <a-plane id="sorbonne_upmc_description" visible="false" position="1 0 1" height="1.5" width="1.75" rotation="0 -25 0">
+            <a-text position="-0.75 0 0" color="#AAA" value="Master Degree\nin Data Science\n & Machine\n Learning"></a-text>
+          </a-plane>
+        </a-entity>
+
+        <a-image id="champo" src="./imgs/edu_xp/champo.png" position="-0.5 -0.2 0.2" height="0.5" width="0.35" event-set__enter="_event: mouseenter; _target: #champo_description; visible: true" event-set__leave="_event: mouseleave; _target: #champo_description; visible: false" alpha-png>
+          <a-plane id="champo_description" visible="false" position="1.25 0 1" height="1.5" width="1.75" rotation="0 -25 0">
+            <a-text position="-0.85 0 0" color="#AAA" value="Bachelor Degree\nComputer\n Science"></a-text>
+          </a-plane>
+        </a-image>
+
+        <a-image id="coursera" src="./imgs/edu_xp/coursera.png" position="-0.5 -0.6 0.2" height="0.15" width="0.5" event-set__enter="_event: mouseenter; _target: #coursera_description; visible: true" event-set__leave="_event: mouseleave; _target: #coursera_description; visible: false" alpha-png>
+          <a-plane id="coursera_description" visible="false" position="1.25 0 1" height="1.5" width="1.75" rotation="0 -25 0">
+            <a-text position="-0.85 0 0" color="#AAA" value="MOOCs\n+6 months"></a-text>
+          </a-plane>
+        </a-image>
+      </a-entity>
+
+      <a-entity>
+        <!-- experience -->
+        <a-entity id="cmp_cvut" event-set__enter="_event: mouseenter; _target: #cmp_cvut_description; visible: true" event-set__leave="_event: mouseleave; _target: #cmp_cvut_description; visible: false">
+          <a-image id="cmp" src="./imgs/edu_xp/cmp.png" position="0.5 0.4 0.2" height="0.25" width="0.5" alpha-png></a-image>
+          <a-image id="cvut" src="./imgs/edu_xp/cvut.png" position="0.9 0.4 0.2" rotation="0 -45 0" height="0.25" width="0.25" alpha-png></a-image>
+
+          <a-plane id="cmp_cvut_description" visible="false" position="-1 0 1" height="1.5" width="1.75" rotation="0 25 0">
+            <a-text position="-0.75 0 0" color="#AAA" value="Neural Network\nCompression"></a-text>
+          </a-plane>
+        </a-entity>
+
+        <a-entity id="irit_ps" event-set__enter="_event: mouseenter; _target: #irit_ps_description; visible: true" event-set__leave="_event: mouseleave; _target: #irit_ps_description; visible: false">
+          <a-image id="irit" src="./imgs/edu_xp/irit.png" position="0.5 0 0.2" height="0.25" width="0.5" alpha-png></a-image>
+          <a-image id="ps" src="./imgs/edu_xp/ps.png" position="0.9 0 0.2" rotation="0 -45 0" height="0.25" width="0.25" alpha-png></a-image>
+
+          <a-plane id="irit_ps_description" visible="false" position="-1 0 1" height="1.5" width="1.75" rotation="0 25 0">
+            <a-text position="0 0 0.3" color="#AAA" align="center" value="Faces\nre-identification\n&\nEmotions\nclassification"></a-text>
+          </a-plane>
+        </a-entity>
+
+
+        <a-image id="thales" src="./imgs/edu_xp/thaless.png" position="0.5 -0.4 0.2" height="0.5" width="0.5" event-set__enter="_event: mouseenter; _target: #thales_description; visible: true" event-set__leave="_event: mouseleave; _target: #thales_description; visible: false" alpha-png>
+          <a-plane id="thales_description" visible="false" position="-1.5 0.3 0.35" height="1.5" width="2.2" rotation="0 25 0">
+            <a-text position="-0.0 0 0.3" color="#AAA" align="center" value="Writting App for :\nServer Monitoring\n&\nAnomaly Detection"></a-text>
+          </a-plane>
+        </a-image>
+      </a-entity>
+    </a-image>
+
+
+    <!-- projects window-->
+    <a-image id="window_projects" src="./imgs/window.png" position="0 1.2 -3.25" height="2" width="2.5" visible="false">
+      <!-- close button-->
+      <a-image id="close_window_education" src="./imgs/close.png" position="1.1 0.9 0.25" height="0.125" width="0.125" event-set__enter="_event: mouseenter; _target: #window_projects; visible: false" alpha-png></a-image>
+
+      <!-- examples of projects -->
+      <a-entity>
+        <a-image id="generic" src="./imgs/projects/generic.png" position="-0.5 0.3 0.2" height="0.5" width="1" event-set__enter="_event: mouseenter; _target: #generic_description; visible: true" event-set__leave="_event: mouseleave; _target: #generic_description; visible: false" alpha-png>
+          <a-text id="generic_description" visible="false" color="#F00" position="-0.5 0 1" value="Unsupervised Learning\nGeneric Detection\nin TV Shows"></a-text>
+        </a-image>
+        <a-image id="kaggle" src="./imgs/projects/kaggle.png" position="-0.5 -0.3 0.2" height="0.5" width="1" event-set__enter="_event: mouseenter; _target: #kaggle_description; visible: true" event-set__leave="_event: mouseleave; _target: #kaggle_description; visible: false" alpha-png>
+          <a-text id="kaggle_description" visible="false" color="#F00" position="-0.5 0 1" value="Ranked TOP 17%\nin Kaggle Competition\nTransfer Learning"></a-text>
+        </a-image>
+        <a-image id="drones" src="./imgs/projects/drone.png" position="0.5 0.3 0.2" height="0.75" width="1" event-set__enter="_event: mouseenter; _target: #drones_description; visible: true" event-set__leave="_event: mouseleave; _target: #drones_description; visible: false" alpha-png>
+          <a-text id="drones_description" align="right" visible="false" color="#F00" position="0 0 1" value="Data Visualization\nBomb VS Drone\nAttacks in Pakistan"></a-text>
+        </a-image>
+        <a-image id="youtube" src="./imgs/projects/youtube.png" position="0.5 -0.3 0.2" height="0.5" width="1" event-set__enter="_event: mouseenter; _target: #youtube_description; visible: true" event-set__leave="_event: mouseleave; _target: #youtube_description; visible: false" alpha-png>
+          <a-text id="youtube_description" align="right" visible="false" color="#F00" position="0 0 1" value="And MANY others\nProjects & demos\nOnline..."></a-text>
+        </a-image>
+      </a-entity>
+
+      <!-- ways to find me -->
+      <a-entity position="0 -2 2.5" rotation="0 180 180">
+          <a-image src="./imgs/youtube.png" position="-0.75 -1 1" rotation="75 0 0" height="1" width="1" alpha-png></a-image>
+          <a-image src="./imgs/projects.png" position="-0.25 -1 1" rotation="75 0 0" height="0.5" width="0.5" alpha-png></a-image>
+          <a-image src="./imgs/linkedin.png" position="0.25 -1 1" rotation="75 0 0" height="0.5" width="0.5" alpha-png></a-image>
+          <a-image src="./imgs/playstore.png" position="0.75 -1 1" rotation="75 0 0" height="0.5" width="0.5" alpha-png></a-image>
+      </a-entity>
+    </a-image>
+
+
+    <!-- floor -->
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="7" color="#919191" src="./imgs/plane.png">
+    </a-plane>
+
+    <a-camera>
+      <a-cursor></a-cursor>
+    </a-camera>
+
+    <a-sky color="#515151" src="./imgs/binary_background.jpg"></a-sky>
+  </a-scene>
+</body>
+
+</html>
